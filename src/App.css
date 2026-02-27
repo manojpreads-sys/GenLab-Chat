@@ -1,0 +1,475 @@
+:root {
+  --bg-color: #0f0f0f;
+  --nav-height: 70px;
+  --input-area-height: 140px;
+  --text-primary: #fcfcfc;
+  --text-secondary: #909090;
+  --accent-yellow: #bcf000;
+  --accent-yellow-dark: #a2cf00;
+  --accent-grey: #1a1a1a;
+  --border-color: #222222;
+  --user-bg: #bcf000;
+  --bot-bg: #1a1a1a;
+  --font-main: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-color);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-gpt-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Top Nav */
+.gpt-top-nav {
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background: rgba(16, 16, 16, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.nav-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.version-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.model-dropdown {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+}
+
+.version-badge {
+  font-size: 0.7rem;
+  background: var(--accent-yellow);
+  color: #101010;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(188, 240, 0, 0.3);
+}
+
+/* Chat Main Area */
+.gpt-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--nav-height));
+  position: relative;
+}
+
+.gpt-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Welcome Screen */
+.gpt-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15vh;
+  gap: 20px;
+  opacity: 0.8;
+}
+
+.welcome-icon {
+  width: 120px;
+  height: 120px;
+  background: var(--accent-grey);
+  color: var(--accent-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  animation: float 4s ease-in-out infinite;
+  border: 4px solid var(--accent-yellow);
+  padding: 20px;
+}
+
+.main-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: -10px;
+}
+
+.welcome-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* Message Rows */
+.message-row {
+  display: flex;
+  gap: 12px;
+  width: fit-content;
+  max-width: 80%;
+  line-height: 1.6;
+}
+
+.bot-row {
+  align-self: flex-start;
+}
+
+.user-row {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.gpt-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 2px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.bot-row .gpt-avatar {
+  background: var(--bg-color);
+  color: var(--accent-yellow);
+  border-color: var(--accent-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.avatar-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.user-row .gpt-avatar {
+  background: #a0aec0;
+  color: white;
+}
+
+.message-content-wrapper {
+  flex: 1;
+}
+
+.sender-label {
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.user-row .sender-label {
+  text-align: right;
+}
+
+.message-content {
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--accent-grey);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.bot-row .message-content {
+  border-bottom-left-radius: 4px;
+}
+
+.user-row .message-content {
+  background: var(--accent-yellow);
+  color: #101010;
+  border-bottom-right-radius: 4px;
+  font-weight: 500;
+  box-shadow: 0 8px 25px rgba(188, 240, 0, 0.15);
+}
+
+.streaming-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--text-primary);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Input Area */
+.gpt-input-area {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to top, var(--bg-color) 80%, transparent);
+}
+
+.gpt-input-wrapper {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 30px;
+  background: var(--accent-grey);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.gpt-input-wrapper:focus-within {
+  border-color: var(--accent-yellow);
+  box-shadow: 0 10px 30px rgba(188, 240, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.gpt-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 8px 0;
+  background: transparent;
+  color: #ffffff;
+}
+
+.gpt-send-btn {
+  background: var(--accent-yellow);
+  color: #101010;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(188, 240, 0, 0.3);
+}
+
+.gpt-send-btn:hover:not(:disabled) {
+  transform: scale(1.1) rotate(-10deg);
+  background: var(--accent-yellow-dark);
+}
+
+.gpt-send-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.gpt-footer-note {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 12px;
+}
+
+/* Voice Button */
+.action-btn.voice-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn.voice-btn.recording {
+  color: #ff4d4f;
+  animation: pulse-red-gpt 1.5s infinite;
+}
+
+@keyframes pulse-red-gpt {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Markdown Specifics */
+.message-content strong {
+  font-weight: 700;
+}
+
+.message-content em {
+  font-style: italic;
+}
+
+.code-block {
+  background: #0d0d0d;
+  color: #ececec;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-family: 'Sentry', monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+/* News Cards (Minimalist) */
+.news-container {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.news-item {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.news-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.news-header {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+/* Typing Indicator (GPT Style) */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: var(--text-secondary);
+  border-radius: 50%;
+  animation: dot-flicker 1.4s infinite linear;
+  opacity: 0.6;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-flicker {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .message-row {
+    padding: 0 10px;
+  }
+}
