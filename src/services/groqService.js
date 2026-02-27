@@ -4,7 +4,7 @@ const API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 
 if (!API_KEY) {
   throw new Error(
-    "VITE_GEMINI_API_KEY is not configured. Please set it in your .env file"
+    "VITE_GROQ_API_KEY is not configured. Please set it in your .env file"
   );
 }
 
